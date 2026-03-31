@@ -1,0 +1,46 @@
+{
+  "last_updated": "2026-03-29T10:00:00Z",
+  "services": [
+    {
+      "name": "web-server-prod",
+      "display_name": "Web Server Production",
+      "status": "UP",
+      "uptime": "99.9%",
+      "last_check": "2026-03-29T10:00:00Z",
+      "response_time_ms": 45
+    },
+    {
+      "name": "api-gateway",
+      "display_name": "API Gateway",
+      "status": "DOWN",
+      "uptime": "98.5%",
+      "last_check": "2026-03-29T10:00:00Z",
+      "last_failure": "2026-03-29T09:45:00Z",
+      "error": "Connection refused"
+    },
+    {
+      "name": "database-primary",
+      "display_name": "Database Primary",
+      "status": "UP",
+      "uptime": "99.99%",
+      "last_check": "2026-03-29T10:00:00Z",
+      "response_time_ms": 12
+    },
+    {
+      "name": "cache-redis",
+      "display_name": "Redis Cache",
+      "status": "UP",
+      "uptime": "99.95%",
+      "last_check": "2026-03-29T10:00:00Z",
+      "response_time_ms": 3
+    },
+    {
+      "name": "auth-service",
+      "display_name": "Authentication Service",
+      "status": "UP",
+      "uptime": "99.8%",
+      "last_check": "2026-03-29T10:00:00Z",
+      "response_time_ms": 28
+    }
+  ]
+}
