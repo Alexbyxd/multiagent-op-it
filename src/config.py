@@ -1,7 +1,7 @@
 """Configuración centralizada del proyecto MASO."""
 from pathlib import Path
 from typing import Optional
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -18,6 +18,17 @@ class Settings(BaseSettings):
     # Google Gemini
     google_api_key: str
     
+    # Qdrant
+    qdrant_host: str = "localhost"
+    qdrant_port: int = 6333
+    qdrant_grpc_port: int = 6334
+    
+    # Database
+    database_path: str = "./data/tickets.db"
+    
+    # Logging
+    log_level: str = "INFO"
+    
     # Embeddings
     embedding_model: str = "gemini-embedding-001"
     chunk_size: int = 80
@@ -27,9 +38,10 @@ class Settings(BaseSettings):
     router_model: str = "gemini-2.5-flash"
     synthesizer_model: str = "gemini-2.5-pro"
     
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8"
+    )
 
 
 settings = Settings()
