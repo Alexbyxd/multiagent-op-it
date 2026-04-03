@@ -7,3 +7,21 @@ AGENTS.md
 PRD.md
 agent.md
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Data (local only)
+data/qdrant/
+data/tickets.db
+
+# IDE
+.windsurf/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
