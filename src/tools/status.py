@@ -3,10 +3,13 @@ import json
 from pathlib import Path
 from typing import Optional
 
+from langchain_core.tools import tool
+
 from src.config import settings
 from src.exceptions import ToolError
 
 
+@tool
 def check_service_status(service_name: str) -> str:
     """Consulta el estado de un servicio específico.
     
@@ -27,7 +30,7 @@ def check_service_status(service_name: str) -> str:
         
         for service in data.get("services", []):
             if service["name"].lower() == service_name.lower():
-                return format_service_status(service)
+                return _format_service_status(service)
         
         available = [s["name"] for s in data.get("services", [])]
         return f"Servicio '{service_name}' no encontrado. Servicios disponibles: {', '.join(available)}"
@@ -38,7 +41,7 @@ def check_service_status(service_name: str) -> str:
         raise ToolError(f"Error consultando estado: {e}") from e
 
 
-def format_service_status(service: dict) -> str:
+def _format_service_status(service: dict) -> str:
     """Formatea el estado de un servicio."""
     status_emoji = "✅" if service["status"] == "UP" else "❌"
     

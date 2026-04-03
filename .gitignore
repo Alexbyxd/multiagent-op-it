@@ -1,0 +1,9 @@
+.git
+.worktrees
+venv
+vol1
+.env
+AGENTS.md
+PRD.md
+agent.md
+

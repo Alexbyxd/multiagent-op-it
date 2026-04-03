@@ -93,21 +93,22 @@ class QdrantManager:
             Lista de documentos similares.
         """
         try:
-            results = self.client.search(
+            # Usar query_points en lugar de search (API newer)
+            results = self.client.query_points(
                 collection_name=self.COLLECTION_NAME,
-                query_vector=query_vector,
+                query=query_vector,
                 limit=limit
             )
             
             return [
                 {
                     "id": r.id,
-                    "text": r.payload["text"],
+                    "text": r.payload.get("text", ""),
                     "source": r.payload.get("source", ""),
                     "page": r.payload.get("page", 0),
                     "score": r.score
                 }
-                for r in results
+                for r in results.result
             ]
             
         except Exception as e:

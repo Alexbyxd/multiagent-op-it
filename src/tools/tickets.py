@@ -6,6 +6,7 @@ from langchain_core.tools import tool
 
 from src.db.queries import search_tickets as db_search_tickets
 from src.exceptions import DatabaseError
+from src.utils.sanitize import sanitize_text
 
 logger = logging.getLogger(__name__)
 
@@ -35,19 +36,26 @@ def search_tickets(query: str, limit: int = 5) -> str:
         
         formatted = []
         for ticket in results:
+            # Sanitizar datos del ticket
+            title = sanitize_text(ticket.get("title", ""))
+            description = sanitize_text(ticket.get("description", ""))
+            error_code = sanitize_text(ticket.get("error_code", ""))
+            solution = sanitize_text(ticket.get("solution", ""))
+            severity = ticket.get("severity", "unknown")
+            
             severity_emoji = {
                 "critical": "🔴",
                 "high": "🟠",
                 "medium": "🟡",
                 "low": "🟢"
-            }.get(ticket["severity"], "⚪")
+            }.get(severity, "⚪")
             
             formatted.append(
-                f"--- Ticket #{ticket['id']} {severity_emoji} {ticket['severity'].upper()} ---\n"
-                f"Título: {ticket['title']}\n"
-                f"Código: {ticket['error_code'] or 'N/A'}\n"
-                f"Descripción: {ticket['description']}\n"
-                f"Solución: {ticket['solution']}\n"
+                f"--- Ticket #{ticket['id']} {severity_emoji} {severity.upper()} ---\n"
+                f"Título: {title}\n"
+                f"Código: {error_code or 'N/A'}\n"
+                f"Descripción: {description}\n"
+                f"Solución: {solution}\n"
             )
         
         return "\n\n".join(formatted)
