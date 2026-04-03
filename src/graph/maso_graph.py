@@ -23,7 +23,7 @@ def create_graph() -> StateGraph:
     def route_after_router(state: AgentState) -> str:
         if state.get("error"):
             return "synthesizer"
-        if state.get("selected_tool"):
+        if state.get("selected_tools"):  # Verificar que la lista no esté vacía
             return "execute_tool"
         return "synthesizer"
     
@@ -65,8 +65,9 @@ def run_agent(query: str, user_level: str = "basic") -> str:
     initial_state: AgentState = {
         "query": query,
         "user_level": user_level,
-        "selected_tool": None,
-        "tool_result": None,
+        "intent": "",
+        "selected_tools": [],
+        "tool_results": [],
         "final_response": None,
         "error": None
     }

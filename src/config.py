@@ -15,8 +15,13 @@ class Settings(BaseSettings):
     DOCUMENTS_DIR: Path = DATA_DIR / "documents"
     STATUS_FILE: Path = DATA_DIR / "status.json"
     
-    # Google Gemini
-    google_api_key: str
+    # Google Gemini (deprecated - usar OpenRouter)
+    google_api_key: str = ""
+    
+    # OpenRouter (proveedor LLM principal)
+    openrouter_api_key: str
+    openrouter_model: str = "z-ai/glm-4.5-air:free"
+    openrouter_base_url: str = "https://openrouter.ai/api/v1"
     
     # Qdrant
     qdrant_host: str = "localhost"
@@ -34,9 +39,15 @@ class Settings(BaseSettings):
     chunk_size: int = 80
     chunk_overlap: int = 10
     
-    # Modelos
-    router_model: str = "gemini-2.5-flash"
-    synthesizer_model: str = "gemini-2.5-pro"
+    # Modelos (alias para compatibilidad)
+    router_model: str = "z-ai/glm-4.5-air:free"
+    synthesizer_model: str = "z-ai/glm-4.5-air:free"
+
+    # Timeouts (segundos)
+    router_llm_timeout: int = 15
+    synthesizer_llm_timeout: int = 30
+    tool_execution_timeout: int = 20
+    embedding_timeout: int = 15
     
     model_config = SettingsConfigDict(
         env_file=".env",
